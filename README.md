@@ -57,13 +57,45 @@ python test_bulk_check.py   # only 9 sample names, finishes in seconds
 
 ## Tweaking
 
-Open `bulk_check.py` and edit:
+Open `bulk_check.py` and customize these settings:
+
+### Rate Limiting & Performance
 ```python
-RATE_LIMIT = 30          # requests per minute
-INPUT_FILE = Path("your_list.txt")
+RATE_LIMIT = 30          # requests per minute (lower = safer, higher = faster)
+DELAY = 60 / RATE_LIMIT  # auto-calculated sleep between requests
 ```
 
-Lowering the rate or adding a VPN/rotate IP usually eliminates most 403s.
+### Input/Output Files
+```python
+INPUT_FILE = Path("your_list.txt")                    # change input source
+FOUND_FILE = Path("sorted/found-words.txt")       # available usernames
+NOT_FOUND_FILE = Path("sorted/unavalible.txt")       # taken usernames  
+ERROR403_FILE = Path("sorted/403-error.txt")      # 403 errors
+```
+
+### Username Filtering
+```python
+MIN_LEN, MAX_LEN = 3, 16  # Critical Ops username length limits
+# Filter logic: usernames = [w for w in all_words if MIN_LEN <= len(w) <= MAX_LEN]
+```
+
+### Advanced Options
+- **Random jitter**: The script adds `random.uniform(0, 0.3)` seconds to each delay to appear more human-like
+- **Pause/Resume**: Press Ctrl+C once to pause, Enter to resume, Ctrl+C twice to exit
+- **Progress tracking**: All counters and ETA calculations update in real-time
+
+**Pro tip**: Lowering the rate limit or using a VPN/proxy rotation usually eliminates most 403 errors.
+
+---
+
+## Looking to Buy an IGN List?
+## Want to Purchase This Bot?
+If you're interested in purchasing this Critical Ops username checker, reach out on Discord:
+
+* **x0p9**  
+* **corixe**
+
+I'll get back to you with current pricing and delivery options for **the bot**. We also sell curated IGN lists.
 
 ---
 
